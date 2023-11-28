@@ -1,5 +1,6 @@
 package com.project.kafkaproducer.controller;
 
+import com.project.kafkaproducer.dtos.ObjectTransferDto;
 import com.project.kafkaproducer.service.KafkaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,12 @@ public class KafkaController {
     @PostMapping
     public ResponseEntity<?> sendMessage(@RequestBody String message) {
         kafkaService.sendMessage(message);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("sendObject")
+    public ResponseEntity<?> sendMessageWithObject(@RequestBody ObjectTransferDto objectTransferDto) {
+        kafkaService.sendMessageWithObject(objectTransferDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
